@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20180709080114) do
     t.datetime "updated_at", null: false
     t.integer "electric_current"
     t.integer "voltage"
+    t.integer "watt"
     t.integer "watt_hour"
   end
 
