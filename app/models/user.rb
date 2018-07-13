@@ -4,7 +4,17 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :validatable
 
   after_create :update_access_token!
-  validates :email, presence: true
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, 
+            presence: true, 
+            uniqueness: true, 
+            format: { with: VALID_EMAIL_REGEX }
+
+  validates :password, 
+            presence: true, 
+            length: {minimum: 8}, 
+            format: {with: /\A[\w-]+\z/}
 
   def update_access_token!
     self.access_token = "#{self.id}:#{Devise.friendly_token}"
