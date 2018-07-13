@@ -8,7 +8,7 @@ module V1
       return invalid_email unless @user
       if @user.valid_password?(params[:password])
         sign_in :user, @user
-        render json: @user, serializer: SessionSeriallizerm root: nil
+        render json: @user, serializer: V1::SessionSerializer, root: nil
       else
         invalid_password
       end
@@ -24,6 +24,10 @@ module V1
     def invalid_password
       warden.custom_failure!
       render json: { error: "Invalid password" }
+    end
+
+    def session_params
+      params.require(:user).permit(:email, :password)
     end
   end
 end
