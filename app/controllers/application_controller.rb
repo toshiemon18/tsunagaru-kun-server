@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include AbstractController::Translation
+  include DeviseTokenAuth::Concerns::SetUserByToken
 
   before_action :authenticate_user_from_token!
   respond_to :json
