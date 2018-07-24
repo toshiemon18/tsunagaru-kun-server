@@ -1,7 +1,8 @@
 module V1
-  class UsersController < ApplicationController
+  class UsersController < DeviseTokenAuth::RegistrationsController
     before_action :set_user, only: [:show, :update, :destroy]
-    skip_before_action :authenticate_user_from_token!, only: [:create]
+    # skip_before_action :authenticate_user_from_token!, only: [:create]
+    before_action :authenticate_user!
 
 
     # GET /users/1
