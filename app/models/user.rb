@@ -4,17 +4,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :devices, dependent: :destroy
+
   after_create :update_access_token!
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, 
-            presence: true, 
-            uniqueness: true, 
+  validates :email,
+            presence: true,
+            uniqueness: true,
             format: { with: VALID_EMAIL_REGEX }
 
-  validates :password, 
-            presence: true, 
-            length: {minimum: 8}, 
+  validates :password,
+            presence: true,
+            length: {minimum: 8},
             format: {with: /\A[\w-]+\z/}
 
   def update_access_token!
