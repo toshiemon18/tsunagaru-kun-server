@@ -1,3 +1,3 @@
 class Metric < ApplicationRecord
-    belongs_to :device
+  belongs_to :device
 end

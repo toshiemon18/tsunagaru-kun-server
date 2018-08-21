@@ -3,7 +3,7 @@ module V1
     before_action :set_user, only: [:show, :update, :destroy]
     # skip_before_action :authenticate_user_from_token!, only: [:create]
     before_action :authenticate_user!
-
+    skip_before_action :authenticate_user!, only: [:create]
 
     # GET /users/1
     def show
@@ -23,6 +23,10 @@ module V1
     private
       def user_params
         params.require(:user).permit(:name, :email, :password)
+      end
+
+      def sign_up_params
+        params.permit(:name, :email, :password)
       end
   end
 end

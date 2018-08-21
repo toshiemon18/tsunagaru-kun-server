@@ -1,17 +1,18 @@
 module V1
   class DevicesController < ApplicationController
     before_action :set_device, only: [:show, :update, :destroy]
+    before_action :authenticate_user!
 
     # GET /devices
     def index
       @devices = Device.all
 
-      render json: @devices
+      render json: @devices, each_serializer: V1::DeviceSerializer
     end
 
     # GET /devices/1
     def show
-      render json: @device
+      render json: @device, serializer: V1::DeviceSerializer
     end
 
     # POST /devices
@@ -19,7 +20,7 @@ module V1
       @device = Device.new(device_params)
 
       if @device.save
-        render json: @device, status: :created, location: @device
+        render json: @device, status: :created, serializer: V1::DeviceSerializer
       else
         render json: @device.errors, status: :unprocessable_entity
       end
@@ -28,7 +29,7 @@ module V1
     # PATCH/PUT /devices/1
     def update
       if @device.update(device_params)
-        render json: @device
+        render json: @device, serializer: V1::DeviceSerializer
       else
         render json: @device.errors, status: :unprocessable_entity
       end
@@ -47,7 +48,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def device_params
-        params.fetch(:device, {})
+        params.require(:device).permit(:name, :category, :image, :user_id).merge(user_id: current_user.id)
       end
   end
 end
