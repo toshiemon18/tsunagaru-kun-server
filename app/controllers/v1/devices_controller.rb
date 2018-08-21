@@ -1,6 +1,7 @@
 module V1
   class DevicesController < ApplicationController
     before_action :set_device, only: [:show, :update, :destroy]
+    before_action :authenticate_user!
 
     # GET /devices
     def index
@@ -47,7 +48,13 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def device_params
-        params.fetch(:device, {})
+        params.fetch(:device, {:name, :category, :image, :user_id})
+      end
+
+      def device_create_params
+        params.require(:device).permit(
+          :user_id, :name, :category, :image
+        ).merge(user_id: current_user.id)
       end
   end
 end
