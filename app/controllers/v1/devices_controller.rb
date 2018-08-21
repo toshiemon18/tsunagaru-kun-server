@@ -12,7 +12,7 @@ module V1
 
     # GET /devices/1
     def show
-      render json: @device
+      render json: @device, srializer: V1::DeviceSerializer
     end
 
     # POST /devices
@@ -29,7 +29,7 @@ module V1
     # PATCH/PUT /devices/1
     def update
       if @device.update(device_params)
-        render json: @device
+        render json: @device, serializer: V1::DeviceSerializer
       else
         render json: @device.errors, status: :unprocessable_entity
       end
@@ -48,13 +48,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def device_params
-        params.fetch(:device, {:name, :category, :image, :user_id})
-      end
-
-      def device_create_params
-        params.require(:device).permit(
-          :user_id, :name, :category, :image
-        ).merge(user_id: current_user.id)
+        params.require(:device).permit(:name, :category, :image, :user_id).merge(user_id: current_user.id)
       end
   end
 end
