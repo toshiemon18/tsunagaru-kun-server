@@ -24,5 +24,9 @@ module V1
       def user_params
         params.require(:user).permit(:name, :email, :password)
       end
+
+      def sign_up_params
+        params.permit(:name, :email, :password)
+      end
   end
 end
