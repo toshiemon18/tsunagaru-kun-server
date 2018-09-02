@@ -14,6 +14,6 @@ class V1::MetricsController < ApplicationController
   private
   # for create method
   def metrics_params
-    params.require(:metrics).permit(:electric_current, :device_id, :recording_time)
+    params.require(:metrics).permit(:electric_current, :watt, :device_id, :recording_time)
   end
 end
