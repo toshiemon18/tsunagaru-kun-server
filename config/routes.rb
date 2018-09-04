@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       controllers: {registrations: 'v1/users',
                     sessions: 'v1/sessions'}
     resources :devices
-    resources :metricses, only: [:create]
+    resources :metricses, only: [:index, :create]
     resources :users, only: [:create]
   end
 end
