@@ -12,7 +12,7 @@ class V1::MetricsController < ApplicationController
   end
 
   def show
-    @metrics = Metric.where(user_id: current_user.id).where(created_at: (6.month.ago)..Time.now)
+    @metrics = Metric.mine(current_user.id).half_year.order_by_created_at_desc
     render json: @metrics, serializer: V1::MetricsSerializer
   end
 
