@@ -1,11 +1,6 @@
 class V1::MetricsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :show]
 
-  def index
-    @metrics = Metric.mine(current_user.id).where(device_id: params[:device_id]).half_year.order_by_created_at_desc
-    render json: @metrics, serializer: V1::MetricsSerializer
-  end
-
   def create
     @metrics = Metric.new(metrics_params)
 
