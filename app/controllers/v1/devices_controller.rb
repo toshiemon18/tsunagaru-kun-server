@@ -12,8 +12,7 @@ module V1
 
     # GET /devices/1
     def show
-      @metrics = Metric.mine(current_user.id).where(device_id: @device.id).half_year.order_by_created_at_desc
-      render json: @device, serializer: V1::DeviceSerializer
+      render json: @device, serializer: V1::DeviceSerializer, include: { :metrics }
     end
 
     # POST /devices
