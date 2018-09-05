@@ -12,7 +12,9 @@ module V1
 
     # GET /devices/1
     def show
+      @metrics = Metric.mine(current_user.id).where(device_id: @device.id).half_year.order_by_created_at_desc
       render json: @device, serializer: V1::DeviceSerializer
+  end
     end
 
     # POST /devices
@@ -43,12 +45,12 @@ module V1
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_device
-        @device = Device.find(params[:id])
+        @device = Device.mine(current_user.id).find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
       def device_params
-        params.require(:device).permit(:name, :category, :image, :user_id).merge(user_id: current_user.id)
+        params.require(:device).permit(:id, :name, :category, :image, :user_id).merge(user_id: current_user.id)
       end
   end
 end
