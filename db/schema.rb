@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20180905095837) do
     t.integer "voltage"
     t.integer "watt"
     t.integer "watt_hour"
-    t.integer "users_id"
-    t.integer "devices_id"
-    t.index ["devices_id"], name: "index_metrics_on_devices_id"
-    t.index ["users_id"], name: "index_metrics_on_users_id"
+    t.integer "user_id"
+    t.integer "device_id"
+    t.index ["device_id"], name: "index_metrics_on_device_id"
+    t.index ["user_id"], name: "index_metrics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
