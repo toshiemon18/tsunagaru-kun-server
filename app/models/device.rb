@@ -3,4 +3,6 @@ class Device < ApplicationRecord
   belongs_to :user
   validates :name, presence: true
   validates :user_id, presence: true
+
+  scope :mine, -> (user_id) { where(user_id: user_id) }
 end

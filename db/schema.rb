@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180821125524) do
+ActiveRecord::Schema.define(version: 20180905095837) do
 
   create_table "devices", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20180821125524) do
     t.text "category"
     t.text "image"
     t.integer "user_id"
+    t.integer "metrics_id"
+    t.index ["metrics_id"], name: "index_devices_on_metrics_id"
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
@@ -29,6 +31,10 @@ ActiveRecord::Schema.define(version: 20180821125524) do
     t.integer "voltage"
     t.integer "watt"
     t.integer "watt_hour"
+    t.integer "user_id"
+    t.integer "device_id"
+    t.index ["device_id"], name: "index_metrics_on_device_id"
+    t.index ["user_id"], name: "index_metrics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

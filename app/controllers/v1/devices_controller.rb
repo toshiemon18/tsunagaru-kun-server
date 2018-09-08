@@ -7,12 +7,12 @@ module V1
     def index
       @devices = Device.all
 
-      render json: @devices, each_serializer: V1::DeviceSerializer
+      render json: @devices, each_serializer: V1::DeviceSerializer, include: []
     end
 
     # GET /devices/1
     def show
-      render json: @device, serializer: V1::DeviceSerializer
+      render json: @device, serializer: V1::DeviceSerializer, include: [:half_year_metrics]
     end
 
     # POST /devices
@@ -20,7 +20,7 @@ module V1
       @device = Device.new(device_params)
 
       if @device.save
-        render json: @device, status: :created, serializer: V1::DeviceSerializer
+        render json: @device, status: :created, serializer: V1::DeviceSerializer, include: []
       else
         render json: @device.errors, status: :unprocessable_entity
       end
@@ -43,12 +43,12 @@ module V1
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_device
-        @device = Device.find(params[:id])
+        @device = Device.mine(current_user.id).find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
       def device_params
-        params.require(:device).permit(:name, :category, :image, :user_id).merge(user_id: current_user.id)
+        params.require(:device).permit(:id, :name, :category, :image, :user_id).merge(user_id: current_user.id)
       end
   end
 end
