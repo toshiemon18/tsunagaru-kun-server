@@ -14,6 +14,6 @@ class V1::MetricsController < ApplicationController
   private
   # for create method
   def metrics_params
-    params.require(:metrics).permit(:electric_current, :watt, :device_id).merge(user_id: current_user.id)
+    params.require(:metric).permit(:electric_current, :watt, :device_id, :user_id).merge(user_id: current_user.id)
   end
 end
