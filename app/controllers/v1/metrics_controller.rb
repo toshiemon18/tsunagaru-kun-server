@@ -4,7 +4,7 @@ class V1::MetricsController < ApplicationController
   def create
     @metrics = Metric.new(metrics_params)
 
-    if @metric.save
+    if @metrics.save
       render json: @metrics, status: :created, serializer: V1::MetricsSerializer
     else
       render json: @metrics.errors, status: :unprocessable_entity
