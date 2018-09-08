@@ -6,6 +6,6 @@ class V1::DeviceSerializer < ActiveModel::Serializer
   has_many :half_year_metrics, serializer: V1::MetricsSerializer
 
   def half_year_metrics
-    object.metrics.half_year_records
+    Metric.where(created_at: (6.month.ago)..Time.now).order("created_at asc")
   end
 end
