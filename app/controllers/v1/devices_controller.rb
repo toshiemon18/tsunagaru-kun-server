@@ -7,12 +7,12 @@ module V1
     def index
       @devices = Device.all
 
-      render json: @devices, each_serializer: V1::DeviceSerializer
+      render json: @devices, each_serializer: V1::DeviceSerializer, include: []
     end
 
     # GET /devices/1
     def show
-      render json: @device, serializer: V1::DeviceSerializer, include: { :metrics }
+      render json: @device, serializer: V1::DeviceSerializer, include: [:half_year_metrics]
     end
 
     # POST /devices
@@ -20,7 +20,7 @@ module V1
       @device = Device.new(device_params)
 
       if @device.save
-        render json: @device, status: :created, serializer: V1::DeviceSerializer
+        render json: @device, status: :created, serializer: V1::DeviceSerializer, include: []
       else
         render json: @device.errors, status: :unprocessable_entity
       end
