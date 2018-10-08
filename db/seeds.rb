@@ -5,5 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-User.create(name: 'kiyoshi', email: 'kiyoshi@takaomi.com', password: 'kiyoshi1234')
+require "./db/fixtures/user.rb"
