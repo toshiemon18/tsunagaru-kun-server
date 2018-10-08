@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: tsunagarukun
+  api_key: '992713326276262'
+  api_secret: dV60-4-RjOnq8XZ6lORXdjQr1yY
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: tsunagarukun
+  api_key: '992713326276262'
+  api_secret: dV60-4-RjOnq8XZ6lORXdjQr1yY
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: tsunagarukun
+  api_key: '992713326276262'
+  api_secret: dV60-4-RjOnq8XZ6lORXdjQr1yY
+  enhance_image_tag: true
+  static_image_support: false

@@ -5,4 +5,6 @@ class Device < ApplicationRecord
   validates :user_id, presence: true
 
   scope :mine, -> (user_id) { where(user_id: user_id) }
+
+  mount_uploader :image, ImagesUploader
 end
